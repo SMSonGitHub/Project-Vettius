@@ -2,10 +2,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 import buildspaceLogo from '../assets/buildspace-logo.png';
 import { useState } from 'react';
-
+import { Buffer } from 'buffer';
 
 
 const Home = () => {
+
 
   const [userInput, setUserInput] = useState('');
   const [apiOutput, setApiOutput] = useState('')
@@ -26,10 +27,38 @@ const Home = () => {
     const data = await response.json();
     const { output } = data;
     console.log("OpenAI replied...", output.text)
+    
 
     setApiOutput(`${output.text}`);
     setIsGenerating(false);
   }
+  const encode = (input) => {
+    return btoa(input); //normally return btoa but im tryna update it to buffer
+  };
+
+  const saveKey = () => {
+    const input = document.getElementById('key_input');
+
+  if (input) {
+    const { value } = input;
+
+    // Encode String
+    const encodedValue = encode(value);
+
+    // Save to google storage
+      brave.storage.local.set({ 'openai-key': encodedValue }, () => {
+      document.getElementById('key_needed').style.display = 'none';
+      document.getElementById('key_entered').style.display = 'block';
+    });
+  }
+  }
+
+  const changeKey = () => {
+    document.getElementById('save_key_button').addEventListener('click', saveKey);
+    document.getElementById('change_key_button') .addEventListener('click', changeKey);
+  }
+    
+
 
 const onUserChangedText = (event) => {
   console.log(event.target.value);
@@ -95,5 +124,12 @@ const onUserChangedText = (event) => {
     </div>
   );
 };
+
+checkForKey().then((response) => {
+  if (response) {
+    document.getElementById('key_needed').style.display = 'none';
+    document.getElementById('key_entered').style.display = 'block';
+  }
+});
 
 export default Home;
