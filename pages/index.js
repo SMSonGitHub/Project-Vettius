@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import buildspaceLogo from '../assets/buildspace-logo.png';
 import { useState } from 'react';
-import { Buffer } from 'buffer';
+import { resolve } from 'styled-jsx/css';
 
 
 const Home = () => {
+
 
 
   const [userInput, setUserInput] = useState('');
@@ -32,6 +32,9 @@ const Home = () => {
     setApiOutput(`${output.text}`);
     setIsGenerating(false);
   }
+
+
+
   const encode = (input) => {
     return btoa(input); //normally return btoa but im tryna update it to buffer
   };
@@ -65,6 +68,7 @@ const onUserChangedText = (event) => {
   setUserInput(event.target.value);
 };
 
+
   return (
     <div 
     className="root"
@@ -87,9 +91,13 @@ const onUserChangedText = (event) => {
     onChange={onUserChangedText}
   />
   <div className="prompt-buttons">
-    <a className="generate-button" onClick={callGenerateEndpoint}>
+    <a 
+    className= {isGenerating ? 'generate-button loading' : 'generate-button'} 
+    onClick={callGenerateEndpoint}
+    >
       <div className="generate">
-        <p>Generate</p>
+        {isGenerating ? <span className="loader"> </span> :
+        <p>Generate</p>}
       </div>
     </a>
   </div>
@@ -125,11 +133,6 @@ const onUserChangedText = (event) => {
   );
 };
 
-checkForKey().then((response) => {
-  if (response) {
-    document.getElementById('key_needed').style.display = 'none';
-    document.getElementById('key_entered').style.display = 'block';
-  }
-});
+
 
 export default Home;
