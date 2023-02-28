@@ -1,8 +1,5 @@
-import Head from 'next/head';
-import Image from 'next/image';
 import { useState } from 'react';
-import { resolve } from 'styled-jsx/css';
-
+import { Buffer } from 'buffer';
 
 const Home = () => {
 
@@ -34,10 +31,9 @@ const Home = () => {
     setIsGenerating(false);
   }
 
-
-
   const encode = (input) => {
-    return btoa(input); //normally return btoa but im tryna update it to buffer
+    return Buffer.from(input);
+    //return btoa(input); normally return btoa but im tryna update it to buffer
   };
 
   const saveKey = () => {
@@ -77,7 +73,7 @@ const onUserChangedText = (event) => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>The Astral Oracle (Alpha 0.1)</h1>
+            <h1>Project Vettius 0.1</h1>
           </div>
           <div className="header-subtitle">
             <h2>Give me a title related to Astrology, and I will write you a blog post about it. (Right now, I only communicate as 2nd century Roman Astrologer Vettius Valens,

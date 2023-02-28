@@ -6,7 +6,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const basePromptPrefix = `Write me a blog post in the style of Vettius Valens with the title below. 
+const basePromptPrefix = `Write me an Astrology blog post in the style of Vettius Valens with the title below. 
 Please make sure this blog post goes in-depth on the topic and shows that the writer did their research.
 Title:`
 
