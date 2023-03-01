@@ -31,40 +31,10 @@ const Home = () => {
     setIsGenerating(false);
   }
 
-  const encode = (input) => {
-    return Buffer.from(input);
-    //return btoa(input); normally return btoa but im tryna update it to buffer
-  };
-
-  const saveKey = () => {
-    const input = document.getElementById('key_input');
-
-  if (input) {
-    const { value } = input;
-
-    // Encode String
-    const encodedValue = encode(value);
-
-    // Save to google storage
-      brave.storage.local.set({ 'openai-key': encodedValue }, () => {
-      document.getElementById('key_needed').style.display = 'none';
-      document.getElementById('key_entered').style.display = 'block';
-    });
-  }
-  }
-
-  const changeKey = () => {
-    document.getElementById('save_key_button').addEventListener('click', saveKey);
-    document.getElementById('change_key_button') .addEventListener('click', changeKey);
-  }
-    
-
-
 const onUserChangedText = (event) => {
   console.log(event.target.value);
   setUserInput(event.target.value);
 };
-
 
   return (
     <div 
